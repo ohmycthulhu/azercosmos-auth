@@ -14,3 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('hashes', 'PasswordsController@checkHash');
+$router->post('login', 'PasswordsController@login');
+$router->post('synchronize/passwords', 'PasswordsController@syncSetPassword');

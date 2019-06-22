@@ -27,7 +27,7 @@ class PasswordsController extends Controller
     public function login (Request $request) {
         $user_table_name = env('ERP_DB', '').'.people';
         $people_id = DB::table($user_table_name )
-            ->where('login', $request->input('login', ''))
+            ->where('LOGIN', $request->input('login', ''))
             ->first();
         if ($people_id == null) {
             return response('User doesn\'t exists', 401);
@@ -49,6 +49,9 @@ class PasswordsController extends Controller
 
     public function checkHash(Request $request) {
         $parts = explode('/', $request->input('hash'));
+        if (empty($parts) or sizeof($parts) < 2) {
+            return 'Nope';
+        }
         $user_id = $parts[0];
         $hash = $parts[1];
         $password = DB::table('passwords')->where('user_id', $user_id)->first();
