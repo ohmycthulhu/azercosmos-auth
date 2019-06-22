@@ -6,8 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Helper\Helper;
 use App\Jobs\SynchronizePassword;
-use App\Password;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
