@@ -25,7 +25,7 @@ class PasswordsController extends Controller
     }
 
     public function login (Request $request) {
-        $user_table_name = env('ERP_DB', '').'.people';
+        $user_table_name = env('ERP_DB', '').'.PEOPLE';
         $people_id = DB::table($user_table_name )
             ->where('LOGIN', $request->input('login', ''))
             ->first();
