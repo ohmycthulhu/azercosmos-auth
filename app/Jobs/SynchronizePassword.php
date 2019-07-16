@@ -26,6 +26,9 @@ class SynchronizePassword extends Job
             'form_params' => [
                 'user_id' => $this->user_id,
                 'password' => $this->password
+            ],
+            'headers' => [
+                'KEY' => env('SYNCHRONIZATION_KEY')
             ]
         ]);
     }

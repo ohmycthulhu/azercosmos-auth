@@ -17,4 +17,6 @@ $router->get('/', function () use ($router) {
 
 $router->get('hashes', 'PasswordsController@checkHash');
 $router->post('login', 'PasswordsController@login');
-$router->post('synchronize/passwords', 'PasswordsController@syncSetPassword');
+$router->post('passwords', 'PasswordsController@setPassword');
+$router->get('user/passwords', 'PasswordsController@getMyPassword');
+$router->post('synchronize/passwords', [ 'uses' => 'PasswordsController@syncSetPassword', 'middleware' => 'sync'] );

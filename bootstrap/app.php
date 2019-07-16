@@ -18,6 +18,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 |
 */
 
+
 $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
@@ -26,7 +27,7 @@ $app->withFacades();
 
 // $app->withEloquent();
 
-$user_id = require_once __DIR__.'/../config/getUser.php';
+$app->id = require_once __DIR__.'/../config/getUser.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -57,16 +58,18 @@ $app->singleton(
 | Next, we will register the middleware with the application. These can
 | be global middleware that run before and after each request into a
 | route or middleware that'll be assigned to some specific routes.
-|
+|sync
 */
 
-// $app->middleware([
+$app->middleware([
+    \palanik\lumen\Middleware\LumenCors::class
 //     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+]);
 
-// $app->routeMiddleware([
+$app->routeMiddleware([
+    'sync' => \App\Http\Middleware\SynchronizationMiddleware::class
 //     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+]);
 
 /*
 |--------------------------------------------------------------------------

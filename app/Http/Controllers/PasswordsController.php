@@ -18,7 +18,7 @@ class PasswordsController extends Controller
     public function setPassword (Request $request) {
         $user_id = app()->id;
         $pass = $request->input('password');
-        $password = $this->__setPassword($user_id, $pass)->toArray();
+        $password = $this->__setPassword($user_id, $pass);
         $this->dispatch(new SynchronizePassword($user_id, $pass));
         unset($password['salt']);
         return $password;
@@ -71,14 +71,24 @@ class PasswordsController extends Controller
                 'password' => $pass,
                 'salt' => Helper::generateSalt()
             ]);
+            $password = (array)$password;
         } else {
-            $password = DB::table('passwords')->insert([
+            $password = [
                 'user_id' => $id,
                 'password' => $pass,
                 'salt' => Helper::generateSalt()
-            ]);
+            ];
+            DB::table('passwords')->insert($password);
         }
         return $password;
     }
 
+    public function getMyPassword () {
+        return $this->__getPassword(app()->id);
+    }
+
+    private function __getPassword ($id) {
+        $result = DB::table('passwords')->where('user_id', $id)->first();
+        return $result == null ? null : $result->password;
+    }
 }
