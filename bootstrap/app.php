@@ -27,6 +27,8 @@ $app->withFacades();
 
 // $app->withEloquent();
 
+session_start();
+
 $app->id = require_once __DIR__.'/../config/getUser.php';
 
 /*
