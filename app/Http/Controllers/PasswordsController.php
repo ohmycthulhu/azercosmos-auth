@@ -72,6 +72,7 @@ class PasswordsController extends Controller
                 'salt' => Helper::generateSalt()
             ]);
             $password = (array)$password;
+            $password['password'] = $pass;
         } else {
             $password = [
                 'user_id' => $id,
