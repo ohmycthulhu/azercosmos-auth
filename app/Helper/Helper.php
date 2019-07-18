@@ -27,7 +27,7 @@ class Helper
         $hash = $parts[1];
         $db = env('AUTH_DB', env('DB_DATABASE', ''));
         $password = DB::table("$db.passwords")->where('user_id', $user_id)->first();
-        return $hash == Helper::generateHash($user_id, $password->salt) ? $user_id : null;
+        return $password != null && $hash == Helper::generateHash($user_id, $password->salt) ? $user_id : null;
     }
 
     static public function generateSalt() {
